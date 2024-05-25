@@ -3,6 +3,15 @@ body {
     margin: 0;
     padding: 0;
 }
+.my-custom-button {
+    background-color: #0073e6; /* Cambia el color de fondo del botón */
+    color: white; /* Cambia el color del texto del botón */
+    border: none; /* Elimina el borde */
+    padding: 10px 20px; /* Ajusta el relleno */
+    font-size: 16px; /* Ajusta el tamaño de la fuente */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    border-radius: 5px; /* Añade bordes redondeados */
+}
 
 .container {
     display: flex;

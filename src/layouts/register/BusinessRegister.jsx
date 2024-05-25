@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import "./register.css";
 import axios from 'axios';
 import {urlGlobal} from "../../environment/env.js";
+import Swal from "sweetalert2";
 
 const BusinessRegister = () => {
 
@@ -16,19 +17,34 @@ const BusinessRegister = () => {
         event.preventDefault(); // Evita la recarga de la página
         const { name, ruc, address, email, password } = formData;
         const type = "Negocio";
-        try {
-            // Registra el usuario
-            const userResponse = await axios.post(urlGlobal + 'User/signup', { email, password, type });
-            const userId = userResponse.data.id;
+        const validateEmail = await axios.get(urlGlobal + 'User/exist/' + email);
+        console.log(validateEmail);
+        if (validateEmail.data){
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Este correo ya está en uso",
+                footer: 'Prueba usando un correo distinto',
+                customClass: {
+                    confirmButton:'my-custom-button'
+                },
+                buttonsStyling: false
+            })
+        }else {
+            try {
+                // Registra el usuario
+                const userResponse = await axios.post(urlGlobal + 'User/signup', { email, password, type });
+                const userId = userResponse.data.id;
 
-            // Registra el negocio asociado al usuario
-            await axios.post(urlGlobal + 'business', { name, ruc, address, user: { id: userId } });
+                // Registra el negocio asociado al usuario
+                await axios.post(urlGlobal + 'business', { name, ruc, address, user: { id: userId } });
 
-            console.log('Registro exitoso');
-            // Puedes redirigir al usuario a una página de éxito aquí
-        } catch (error) {
-            console.error('Error al registrar:', error);
-            // Maneja errores aquí (por ejemplo, muestra un mensaje de error)
+                console.log('Registro exitoso');
+                // Puedes redirigir al usuario a una página de éxito aquí
+            } catch (error) {
+                console.error('Error al registrar:', error);
+                // Maneja errores aquí (por ejemplo, muestra un mensaje de error)
+            }
         }
     };
     const handleChange = (event) => {
