@@ -1,12 +1,11 @@
-import BusinessRegister from "../layouts/register/BusinessRegister.jsx";
-import businessRegister from "../layouts/register/BusinessRegister.jsx";
-import InitialPage from "../layouts/login/InitialPage.jsx";
+import {BusinessRegister} from "../pages/business/register/BusinessRegister.jsx";
+import InitialPageLayout from "../layouts/creadentials/InitialPageLayout.jsx";
 
 const routesBusiness = [
     {
-        path:'/Business',
-        layout: InitialPage,
-        component: businessRegister
+        path:'/Business/register',
+        layout: InitialPageLayout,
+        component: BusinessRegister
     }
 ]
 

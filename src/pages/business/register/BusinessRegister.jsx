@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import "./register.css";
+import {useState} from 'react';
+import "./register.css"
 import axios from 'axios';
-import {urlGlobal} from "../../environment/env.js";
+import {urlGlobal} from "../../../environment/env.js";
 import Swal from "sweetalert2";
 
-const BusinessRegister = () => {
+export const BusinessRegister = () => {
 
     const [formData, setFormData] = useState({
             name: '',
@@ -97,4 +97,3 @@ const BusinessRegister = () => {
     );
 };
 
-export default BusinessRegister;

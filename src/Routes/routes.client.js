@@ -1,9 +1,9 @@
-import {ClientRegister} from "../layouts/register/ClientRegister.jsx";
-import InitialPage from "../layouts/login/InitialPage.jsx";
+import {ClientRegister} from "../pages/client/register/ClientRegister.jsx";
+import InitialPageLayout from "../layouts/creadentials/InitialPageLayout.jsx";
 const routesClient = [
     {
-        path:'/Client',
-        layout: InitialPage,
+        path:'/Client/register',
+        layout: InitialPageLayout,
         component: ClientRegister
     }
 ]

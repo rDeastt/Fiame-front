@@ -1,7 +1,7 @@
-import "./registerClient.css"
+import "./register.css"
 import {useState} from "react";
 import axios from "axios";
-import {urlGlobal} from "../../environment/env.js";
+import {urlGlobal} from "../../../environment/env.js";
 import Swal from "sweetalert2";
 export const ClientRegister = () => {
 

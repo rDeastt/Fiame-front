@@ -12,16 +12,15 @@ body {
     cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
     border-radius: 5px; /* Añade bordes redondeados */
 }
-
 .container {
     display: flex;
-    height: 100vh;
+    height: calc(100vh - 67px);
 }
 
 .image {
     flex: 1;
-    background: url('src/assets/registerc.png') no-repeat center center;
-    background-size:cover;
+    background: url('../../../assets/register.png') no-repeat center center;
+    background-size: cover;
 }
 
 .form-wrapper {
@@ -53,12 +52,12 @@ body {
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 20px;
 }
 
 .form-container button {
     padding: 10px;
-    width: 100%;
+    width: 50%;
     border: none;
     border-radius: 5px;
     background-color: #0073e6;
@@ -74,13 +73,13 @@ body {
     }
 
     .image {
-        display: none;
+        display: none; 
     }
 
     .form-wrapper {
         height: 100vh;
         width: 100%;
-        background: url('src/assets/registerc.png') no-repeat center center;
+        background: url('../../../assets/register.png') no-repeat center center;
         background-size: cover;
     }
 }
