@@ -1,4 +1,4 @@
-import "./register.css"
+import "./register.client.css"
 import {useState} from "react";
 import axios from "axios";
 import {urlGlobal} from "../../../environment/env.js";

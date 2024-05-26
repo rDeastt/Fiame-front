@@ -1,5 +1,5 @@
+import "./register.busines.css"
 import {useState} from 'react';
-import "./register.css"
 import axios from 'axios';
 import {urlGlobal} from "../../../environment/env.js";
 import Swal from "sweetalert2";
@@ -55,9 +55,9 @@ export const BusinessRegister = () => {
 
     return (
         <>
-            <div className="container">
-                <div className="image"></div>
-                <div className="form-wrapper">
+            <div className="container-reg">
+                <div className="image-reg"></div>
+                <div className="form-wrapper-reg">
                     <div className="form-container">
                         <h2>Registro de Negocio</h2>
                         <form onSubmit={handleSubmit} method="post">
