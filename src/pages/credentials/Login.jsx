@@ -72,7 +72,7 @@ export const Login = () => {
                             Client.user = responseType.data.user
                             sessionStorage.setItem("Usuario",JSON.stringify(Client))
                             console.log(sessionStorage.getItem("Usuario"))
-
+                            navigate('/Client')
                             break;
                         case 'Negocio':
                             responseType = await axios.post(urlGlobal+'business/findbyuser',user)
@@ -83,6 +83,7 @@ export const Login = () => {
                             Business.user = responseType.data.user
                             sessionStorage.setItem("Usuario",JSON.stringify(Business))
                             console.log(sessionStorage.getItem("Usuario"))
+                            navigate('/Business')
                             break
                         default:
                             break;
