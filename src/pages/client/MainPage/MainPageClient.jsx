@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {BusinessList} from "../../../components/client/businessList/BusinessList.jsx";
 import axios from "axios";
 import {urlGlobal} from "../../../environment/env.js";
+import {useNavigate} from "react-router-dom";
 
 export const MainPageClient = () => {
     const [searchTerm, setSearchTerm] = useState('');

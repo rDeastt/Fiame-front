@@ -56,7 +56,7 @@ export const ClientRegister = () => {
 
     return (
         <>
-            <div className="container">
+            <div className="container-reg">
                 <div className="image"></div>
                 <div className="form-wrapper">
                     <div className="form-container">

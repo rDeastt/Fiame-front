@@ -3,7 +3,10 @@ import './businessList.css';
 
 export const BusinessItem = ({ plan }) => {
     const { business, quotas } = plan;
-    const nextQuota = quotas.find(quota => !quota.payed);
+    // Ordenar las cuotas por su id
+    const sortedQuotas = quotas.sort((a, b) => a.id - b.id);
+    // Encontrar la próxima cuota no pagada
+    const nextQuota = sortedQuotas.find(quota => !quota.payed);
 
     return (
         <div className="business-item">
