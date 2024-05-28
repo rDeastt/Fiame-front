@@ -8,8 +8,10 @@ export const MainPageClient = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const storedUser = sessionStorage.getItem('Usuario');
     const [paymentplans, setPaymentPlans] = useState([]);
-    const user = storedUser ? JSON.parse(storedUser) : null
+    const [paymentbags, setPaymentBags] = useState([]);
+    const user = storedUser ? JSON.parse(storedUser) : null;
     console.log(user);
+
     useEffect(() => {
         const fetchPaymentPlans = async () => {
             try {
@@ -21,15 +23,26 @@ export const MainPageClient = () => {
             }
         };
 
+        const fetchPaymentBags = async () => {
+            try {
+                const response = await axios.get(urlGlobal + 'paymentbag/allbags/' + user.id);
+                const paymentBagsData = response.data; // Verifica que response.data sea un array
+                setPaymentBags(paymentBagsData);
+            } catch (error) {
+                console.error('Error fetching payment bags:', error);
+            }
+        };
+
         fetchPaymentPlans();
+        fetchPaymentBags();
     }, [user.id]);
 
-    console.log(paymentplans);
+    console.log(paymentplans, paymentbags);
     return (
         <>
             <div className="main-page-client">
                 <div className="container-paymentplans">
-                    <BusinessList paymentplans={paymentplans}/>
+                    <BusinessList paymentplans={paymentplans} paymentbags={paymentbags} />
                 </div>
             </div>
         </>

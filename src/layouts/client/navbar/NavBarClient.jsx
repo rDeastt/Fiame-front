@@ -14,22 +14,20 @@ export const NavBarClient = (props) => {
         <>
             <nav className="navbar">
                 <div className="navbar-logo">
-                    <a href="/">
+                    <Link to="/">
                         <img src="src/assets/logo.png" alt="Logo" className="logo-image"/>
-                    </a>
+                    </Link>
                     <h1>FiaMe</h1>
                 </div>
                 <div className="user-info">
                     <img src="src/assets/user.png" alt="User Avatar" className="user-avatar"/>
                     <span>{user.name + " " + user.lastname}</span>
                 </div>
-                <Link to={"/"}>
-                    <a>
-                        <button onClick={handleClearSessionStorage} className="logout-button">Cerrar Sesión</button>
-                    </a>
-                </Link>
+                <button onClick={handleClearSessionStorage} className="logout-button">
+                    <Link to="/">Cerrar Sesión</Link>
+                </button>
             </nav>
-            <div> {children}</div>
+            <div>{children}</div>
         </>
     );
 };
