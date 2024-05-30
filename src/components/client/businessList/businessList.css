@@ -3,7 +3,7 @@
     background-color: #00b0f0;
     font-size: 12px;
     padding: 20px;
-    height: 100vh;
+    min-height: calc(100vh - 109px);
     display: flex;
     justify-content: flex-start; /* Ajuste para alinear la lista hacia arriba */
     align-items: center;

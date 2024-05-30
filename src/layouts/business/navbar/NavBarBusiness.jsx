@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import './NavBarClient.css'
+import './NavBarBusiness.css'
 import {Link} from "react-router-dom";
-export const NavBarClient = (props) => {
+export const NavBarBusiness = (props) => {
     const storedUser = sessionStorage.getItem("Usuario")
     const user = JSON.parse(storedUser);
     const { children } = props
@@ -10,6 +10,7 @@ export const NavBarClient = (props) => {
         sessionStorage.removeItem('Usuario');
         // Puedes agregar cualquier otra lógica que necesites después de borrar el elemento
     };
+
     return (
         <>
             <nav className="navbar">
@@ -21,7 +22,7 @@ export const NavBarClient = (props) => {
                 </div>
                 <div className="user-info">
                     <img src="src/assets/user.png" alt="User Avatar" className="user-avatar"/>
-                    <span>{user.name + " " + user.lastname}</span>
+                    <span>{user.name}</span>
                 </div>
                 <button onClick={handleClearSessionStorage} className="logout-button">
                     <Link to="/" className="logout-link">Cerrar Sesión</Link>
