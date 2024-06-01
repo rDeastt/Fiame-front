@@ -15,7 +15,7 @@ export const NavBarBusiness = (props) => {
         <>
             <nav className="navbar">
                 <div className="navbar-logo">
-                    <Link to="/Client">
+                    <Link to="/Business">
                         <img src="src/assets/logo.png" alt="Logo" className="logo-image"/>
                     </Link>
                     <h1>FiaMe</h1>

@@ -19,6 +19,7 @@ export const ClientRegister = () => {
         const { name, lastname,dni,credit_limit,email,password } = formData;
         const type = "Cliente";
         const validateEmail = await axios.get(urlGlobal + 'User/exist/' + email);
+        const validateDni = await axios.get(urlGlobal + 'client/existClient/' + dni);
         console.log(validateEmail);
         if (validateEmail.data){
             Swal.fire({
@@ -32,19 +33,32 @@ export const ClientRegister = () => {
                 buttonsStyling: false
             })
         }else {
-            try {
-                // Registra el usuario
-                const userResponse = await axios.post(urlGlobal + 'User/signup', { email, password, type });
-                const userId = userResponse.data.id;
+            if (validateDni.data){
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Este DNI ya esta asociado a una Cuenta",
+                    footer: 'Verifica que tu DNI este escrito correctamente',
+                    customClass: {
+                        confirmButton:'my-custom-button'
+                    },
+                    buttonsStyling: false
+                })
+            }else {
+                try {
+                    // Registra el usuario
+                    const userResponse = await axios.post(urlGlobal + 'User/signup', { email, password, type });
+                    const userId = userResponse.data.id;
 
-                // Registra el negocio asociado al usuario
-                await axios.post(urlGlobal + 'client', { name, lastname,dni,credit_limit, user: { id: userId } });
+                    // Registra el negocio asociado al usuario
+                    await axios.post(urlGlobal + 'client', { name, lastname,dni,credit_limit, user: { id: userId } });
 
-                console.log('Registro exitoso');
-                // Puedes redirigir al usuario a una página de éxito aquí
-            } catch (error) {
-                console.error('Error al registrar:', error);
-                // Maneja errores aquí (por ejemplo, muestra un mensaje de error)
+                    console.log('Registro exitoso');
+                    // Puedes redirigir al usuario a una página de éxito aquí
+                } catch (error) {
+                    console.error('Error al registrar:', error);
+                    // Maneja errores aquí (por ejemplo, muestra un mensaje de error)
+                }
             }
         }
     };

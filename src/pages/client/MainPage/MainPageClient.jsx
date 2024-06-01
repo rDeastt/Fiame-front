@@ -15,21 +15,29 @@ export const MainPageClient = () => {
     useEffect(() => {
         const fetchPaymentPlans = async () => {
             try {
-                const response = await axios.get(urlGlobal + 'paymentplan/getPaymentPlans/' + user.id);
-                const paymentPlansData = response.data; // Verifica que response.data sea un array
+                const response = await axios.get(urlGlobal + 'paymentplan/getPaymentPlansClient/' + user.id);
+                const paymentPlansData = response.data;
                 setPaymentPlans(paymentPlansData);
             } catch (error) {
-                console.error('Error fetching payment plans:', error);
+                if (error.response && error.response.status === 404) {
+                    setPaymentPlans([]); // Si es un 404, simplemente deja el array vacío
+                } else {
+                    console.error('Error fetching payment plans:', error);
+                }
             }
         };
 
         const fetchPaymentBags = async () => {
             try {
                 const response = await axios.get(urlGlobal + 'paymentbag/allbags/' + user.id);
-                const paymentBagsData = response.data; // Verifica que response.data sea un array
+                const paymentBagsData = response.data;
                 setPaymentBags(paymentBagsData);
             } catch (error) {
-                console.error('Error fetching payment bags:', error);
+                if (error.response && error.response.status === 404) {
+                    setPaymentBags([]); // Si es un 404, simplemente deja el array vacío
+                } else {
+                    console.error('Error fetching payment bags:', error);
+                }
             }
         };
 

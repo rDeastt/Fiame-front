@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import './businessList.css';
+import './clientList.css';
 import axios from "axios";
 import {urlGlobal} from "../../../environment/env.js";
 import {Link} from "react-router-dom";
 
-export const BusinessItem = ({ data, type }) => {
-    const { business, quotas, list_pay_without_instalments } = data;
+export const ClientItem = ({ data, type }) => {
+    const { business,client, quotas, list_pay_without_instalments } = data;
     const [totalWithInterest, setTotalWithInterest] = useState('N/A');
 
     useEffect(() => {
@@ -58,10 +58,10 @@ export const BusinessItem = ({ data, type }) => {
 
     return (
         <div className="business-item">
-            <img src={"src/assets/tienda.jpg"} alt="Business" className="business-image" />
+            <img src={"src/assets/user.png"} alt="Business" className="business-image" />
             <div className="business-info">
-                <p className="info-item">Nombre: {business.name}</p>
-                <p className="info-item">RUC: {business.ruc}</p>
+                <p className="info-item">Cliente: {client.name + " " + client.lastname}</p>
+                <p className="info-item">DNI: {client.dni}</p>
                 {type === 'paymentplan' ? renderPaymentPlanInfo() : renderPaymentBagInfo()}
             </div>
             <div className="action-container">
@@ -80,7 +80,7 @@ export const BusinessItem = ({ data, type }) => {
                         <p>Dentro del plazo</p>
                     </div>
                 )}
-                <Link to={"/Client/Details/"+data.id}>
+                <Link to={"/Business/Details/"+data.id}>
                     <button className="details-button">Más detalles</button>
                 </Link>
             </div>

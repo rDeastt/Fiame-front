@@ -19,14 +19,12 @@ export const DetailsClientPage = () => {
     useEffect(() => {
         const fetchPaymentPlan = async () => {
             try {
-                const response = await axios.get(`${urlGlobal}paymentplan/getPaymentPlans/${id}`);
+                const response = await axios.get(`${urlGlobal}paymentplan/getPaymentPlan/${id}`);
                 const paymentPlanData = response.data;
-                if (Array.isArray(paymentPlanData) && paymentPlanData.length > 0) {
-                    setPaymentPlan(paymentPlanData[0]);
-                } else {
-                    setPaymentPlan(null);
-                }
+                setPaymentPlan(paymentPlanData);
+
             } catch (error) {
+                setPaymentPlan(null);
                 console.error('Error fetching payment plans:', error);
             }
         };
