@@ -1,18 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {urlGlobal} from "../../../environment/env.js";
-import {ClientList} from "../../../components/business/clientList/ClientList.jsx";
-import {useNavigate} from "react-router-dom";
+import {QuotaSummary} from "../../../components/business/Charts/QuotaSummary.jsx";
 
 export const MainPageBusiness = () => {
-    const [searchTerm, setSearchTerm] = useState('');
     const storedUser = sessionStorage.getItem('Usuario');
     const [paymentplans, setPaymentPlans] = useState([]);
-    const [paymentbags, setPaymentBags] = useState([]);
     const user = storedUser ? JSON.parse(storedUser) : null;
-    const navigate = useNavigate()
+    const [quotaSummary, setQuotaSummary] = useState([]);
     console.log(user);
-
     useEffect(() => {
         const fetchPaymentPlans = async () => {
             try {
@@ -27,40 +23,22 @@ export const MainPageBusiness = () => {
                 }
             }
         };
-
-        const fetchPaymentBags = async () => {
+        const fetcQuotaSummary = async ()=>{
             try {
-                const response = await axios.get(urlGlobal + 'paymentbag/allbags/' + user.id);
-                const paymentBagsData = response.data;
-                setPaymentBags(paymentBagsData);
-            } catch (error) {
-                if (error.response && error.response.status === 404) {
-                    setPaymentBags([]); // Si es un 404, simplemente deja el array vacío
-                } else {
-                    console.error('Error fetching payment bags:', error);
-                }
+                const response = await axios.get(urlGlobal + 'paymentplan/getQuotaSummaryByBusiness/' + user.id)
+                setQuotaSummary(response.data);
+            }catch (error){
+                console.error('Error fetching quotasummary:', error);
             }
-        };
-
-        fetchPaymentPlans();
-        fetchPaymentBags();
+        }
+        fetchPaymentPlans()
+        fetcQuotaSummary()
     }, [user.id]);
-
-    const onHandlerClick=()=>{
-        navigate("/Business/CreatePaymentPlan")
-    }
-    
-    console.log(paymentplans, paymentbags);
+    console.log(quotaSummary);
     return (
         <>
-            <div className="main-page-client">
-                <div className="container-paymentplans">
-                    <ClientList paymentplans={paymentplans} paymentbags={paymentbags}/>
-                </div>
-                <button onClick={onHandlerClick}>
-                    Crear Prestamo
-                </button>
-            </div>
+            <p>graficos</p>
+            <QuotaSummary quotaSummary={quotaSummary}/>
         </>
     );
 };

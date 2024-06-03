@@ -140,142 +140,144 @@ export const CreatePaymentPlan = () => {
     };
 
     return (
-        <Box sx={{ maxWidth: 600, margin: 'auto', padding: 2 }}>
-            <Typography variant="h4" gutterBottom>Registro de Prestamo</Typography>
-            <TextField
-                label="DNI del Cliente"
-                value={dni}
-                onChange={(e) => setDni(e.target.value)}
-                fullWidth
-                margin="normal"
-            />
-            <Button onClick={searchCreditLimit} variant="contained" color="primary">Buscar</Button>
-
-            <TextField
-                label="Límite de Crédito"
-                value={creditLimit}
-                onChange={(e) => setCreditLimit(e.target.value)}
-                type="number"
-                fullWidth
-                margin="normal"
-                InputProps={{ inputProps: { min: 0 }, readOnly: true }}
-            />
-
-            <FormControlLabel
-                control={<Checkbox checked={interestType === 'Efectiva'} onChange={() => setInterestType('Efectiva')} />}
-                label="Efectiva"
-            />
-            <FormControlLabel
-                control={<Checkbox checked={interestType === 'Nominal'} onChange={() => setInterestType('Nominal')} />}
-                label="Nominal"
-            />
-
-            <TextField
-                label="Tasa de interés"
-                value={interestRate}
-                onChange={(e) => setInterestRate(e.target.value)}
-                fullWidth
-                margin="normal"
-                type="number" // Cambiado a "text" para permitir números decimales
-                InputProps={{
-                    inputProps: {
-                        min: 0, // Mínimo permitido
-                    },
-                    endAdornment: <span>%</span>,
-                }}
-            />
-            <FormControl fullWidth margin="normal">
-                <InputLabel id={"select-cap"}>Selecciona la capitalización</InputLabel>
-                <Select
-                    labelId = "select-cap"
-                    label = "Selecciona la capitalización"
-                    value={capitalization}
-                    onChange={(e) => setCapitalization(e.target.value)}
+        <Box sx={{ backgroundColor: '#07AEBA', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Box sx={{ maxWidth: 600, width: '100%', backgroundColor: 'white', borderRadius: 2, padding: 3, boxShadow: 3 }}>
+                <Typography variant="h4" gutterBottom>Registro de Prestamo</Typography>
+                <TextField
+                    label="DNI del Cliente"
+                    value={dni}
+                    onChange={(e) => setDni(e.target.value)}
                     fullWidth
-                >
-                    <MenuItem value="Anual">Anual</MenuItem>
-                    <MenuItem value="Semestral">Semestral</MenuItem>
-                    <MenuItem value="Cuatrimestral">Cuatrimestral</MenuItem>
-                    <MenuItem value="Trimestral">Trimestral</MenuItem>
-                    <MenuItem value="Bimestral">Bimestral</MenuItem>
-                    <MenuItem value="Mensual">Mensual</MenuItem>
-                    <MenuItem value="Quincenal">Quincenal</MenuItem>
-                    <MenuItem value="Diaria">Diaria</MenuItem>
-                </Select>
-            </FormControl>
+                    margin="normal"
+                />
+                <Button onClick={searchCreditLimit} variant="contained" color="primary">Buscar</Button>
 
-            <TextField
-                label="Tasa de interés moratoria"
-                value={moratoriumInterestRate}
-                fullWidth
-                onChange={(e) => setMoratoriumInterestRate(e.target.value)}
-                margin="normal"
-                type={'number'}
-                InputProps={{
-                    inputProps: {
-                        min: 0, // Mínimo permitido
-                    },
-                    endAdornment: <span>%</span>,
-                }}
-            />
-
-            <FormControl fullWidth margin="normal">
-                <InputLabel id={"select-term"}>Plazo de pago</InputLabel>
-                <Select
-                    label = "Plazo de pago"
-                    value={paymentTerm}
-                    onChange={(e) => setPaymentTerm(e.target.value)}
+                <TextField
+                    label="Límite de Crédito"
+                    value={creditLimit}
+                    onChange={(e) => setCreditLimit(e.target.value)}
+                    type="number"
                     fullWidth
-                >
-                    <MenuItem value={1}>1 mes</MenuItem>
-                    <MenuItem value={2}>2 meses</MenuItem>
-                    <MenuItem value={3}>3 meses</MenuItem>
-                    {/* Add more options as necessary */}
-                </Select>
-            </FormControl>
+                    margin="normal"
+                    InputProps={{ inputProps: { min: 0 }, readOnly: true }}
+                />
 
-            <FormControlLabel
-                control={<Checkbox checked={gracePeriodType === 'Total'} onChange={() => setGracePeriodType('Total')} />}
-                label="Periodo de Gracia Total"
-            />
-            <FormControlLabel
-                control={<Checkbox checked={gracePeriodType === 'Parcial'} onChange={() => setGracePeriodType('Parcial')} />}
-                label="Periodo de Gracia Parcial"
-            />
+                <FormControlLabel
+                    control={<Checkbox checked={interestType === 'Efectiva'} onChange={() => setInterestType('Efectiva')} />}
+                    label="Efectiva"
+                />
+                <FormControlLabel
+                    control={<Checkbox checked={interestType === 'Nominal'} onChange={() => setInterestType('Nominal')} />}
+                    label="Nominal"
+                />
 
-            <TextField
-                label="Número de cuotas del periodo de gracia"
-                value={gracePeriod}
-                onChange={(e) => setGracePeriod(e.target.value)}
-                type="number"
-                fullWidth
-                margin="normal"
-                InputProps={{ inputProps: { min: 0 } }}
-            />
+                <TextField
+                    label="Tasa de interés"
+                    value={interestRate}
+                    onChange={(e) => setInterestRate(e.target.value)}
+                    fullWidth
+                    margin="normal"
+                    type="number" // Cambiado a "text" para permitir números decimales
+                    InputProps={{
+                        inputProps: {
+                            min: 0, // Mínimo permitido
+                        },
+                        endAdornment: <span>%</span>,
+                    }}
+                />
+                <FormControl fullWidth margin="normal">
+                    <InputLabel id={"select-cap"}>Selecciona la capitalización</InputLabel>
+                    <Select
+                        labelId="select-cap"
+                        label="Selecciona la capitalización"
+                        value={capitalization}
+                        onChange={(e) => setCapitalization(e.target.value)}
+                        fullWidth
+                    >
+                        <MenuItem value="Anual">Anual</MenuItem>
+                        <MenuItem value="Semestral">Semestral</MenuItem>
+                        <MenuItem value="Cuatrimestral">Cuatrimestral</MenuItem>
+                        <MenuItem value="Trimestral">Trimestral</MenuItem>
+                        <MenuItem value="Bimestral">Bimestral</MenuItem>
+                        <MenuItem value="Mensual">Mensual</MenuItem>
+                        <MenuItem value="Quincenal">Quincenal</MenuItem>
+                        <MenuItem value="Diaria">Diaria</MenuItem>
+                    </Select>
+                </FormControl>
 
-            <TextField
-                label="Costo Total"
-                value={totalCost}
-                onChange={(e) => setTotalCost(e.target.value)}
-                type="number"
-                fullWidth
-                margin="normal"
-                InputProps={{ inputProps: { min: 0 } }}
-            />
+                <TextField
+                    label="Tasa de interés moratoria"
+                    value={moratoriumInterestRate}
+                    fullWidth
+                    onChange={(e) => setMoratoriumInterestRate(e.target.value)}
+                    margin="normal"
+                    type={'number'}
+                    InputProps={{
+                        inputProps: {
+                            min: 0, // Mínimo permitido
+                        },
+                        endAdornment: <span>%</span>,
+                    }}
+                />
 
-            <TextField
-                label="Cuota Inicial"
-                value={initialQuota}
-                onChange={(e) => setInitialQuota(e.target.value)}
-                type="number"
-                fullWidth
-                margin="normal"
-                InputProps={{ inputProps: { min: 0 } }}
-            />
+                <FormControl fullWidth margin="normal">
+                    <InputLabel id={"select-term"}>Plazo de pago</InputLabel>
+                    <Select
+                        label="Plazo de pago"
+                        value={paymentTerm}
+                        onChange={(e) => setPaymentTerm(e.target.value)}
+                        fullWidth
+                    >
+                        <MenuItem value={1}>1 mes</MenuItem>
+                        <MenuItem value={2}>2 meses</MenuItem>
+                        <MenuItem value={3}>3 meses</MenuItem>
+                        {/* Add more options as necessary */}
+                    </Select>
+                </FormControl>
 
-            <Button variant="contained" color="primary" onClick={handleGenerateLoan} fullWidth>
-                Generar Prestamo
-            </Button>
+                <FormControlLabel
+                    control={<Checkbox checked={gracePeriodType === 'Total'} onChange={() => setGracePeriodType('Total')} />}
+                    label="Periodo de Gracia Total"
+                />
+                <FormControlLabel
+                    control={<Checkbox checked={gracePeriodType === 'Parcial'} onChange={() => setGracePeriodType('Parcial')} />}
+                    label="Periodo de Gracia Parcial"
+                />
+
+                <TextField
+                    label="Número de cuotas del periodo de gracia"
+                    value={gracePeriod}
+                    onChange={(e) => setGracePeriod(e.target.value)}
+                    type="number"
+                    fullWidth
+                    margin="normal"
+                    InputProps={{ inputProps: { min: 0 } }}
+                />
+
+                <TextField
+                    label="Costo Total"
+                    value={totalCost}
+                    onChange={(e) => setTotalCost(e.target.value)}
+                    type="number"
+                    fullWidth
+                    margin="normal"
+                    InputProps={{ inputProps: { min: 0 } }}
+                />
+
+                <TextField
+                    label="Cuota Inicial"
+                    value={initialQuota}
+                    onChange={(e) => setInitialQuota(e.target.value)}
+                    type="number"
+                    fullWidth
+                    margin="normal"
+                    InputProps={{ inputProps: { min: 0 } }}
+                />
+
+                <Button variant="contained" color="primary" onClick={handleGenerateLoan} fullWidth>
+                    Generar Prestamo
+                </Button>
+            </Box>
         </Box>
     );
 };

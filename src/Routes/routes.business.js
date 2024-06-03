@@ -3,6 +3,7 @@ import InitialPageLayout from "../layouts/creadentials/InitialPageLayout.jsx";
 import {NavBarBusiness} from "../layouts/business/navbar/NavBarBusiness.jsx";
 import {MainPageBusiness} from "../pages/business/MainPage/MainPageBusiness.jsx";
 import {CreatePaymentPlan} from "../pages/business/CreatePaymentPlan/CreatePaymentPlan.jsx";
+import {ActiveClients} from "../pages/business/ActiveClients/ActiveClients.jsx";
 
 const routesBusiness = [
     {
@@ -19,6 +20,11 @@ const routesBusiness = [
         path: '/Business/CreatePaymentPlan',
         layout: NavBarBusiness,
         component: CreatePaymentPlan
+    },
+    {
+        path: '/Business/ActiveClients',
+        layout: NavBarBusiness,
+        component:ActiveClients
     }
 ]
 
