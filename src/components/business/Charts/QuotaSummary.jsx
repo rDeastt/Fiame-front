@@ -1,6 +1,17 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+} from 'chart.js';
 
+// Registro de componentes necesarios de Chart.js
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 export const QuotaSummary = ({ quotaSummary }) => {
     const data = {
         labels: ['Cuotas vencidas', 'Cuotas pagadas', 'Cuotas pagadas con vencimiento', 'Cuotas sin pagar sin vencimiento'],

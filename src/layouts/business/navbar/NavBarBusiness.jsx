@@ -40,7 +40,7 @@ export const NavBarBusiness = (props) => {
                         </Link>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Avatar src="src/assets/user.png" alt="User Avatar" />
+                        <Avatar src="src/assets/tienda.jpg" alt="User Avatar" />
                         <Typography variant="body1" sx={{ marginLeft: 1, color: 'black' }}>{user?.name || "Usuario"}</Typography>
                     </Box>
                     <IconButton color="default" onClick={handleClearSessionStorage} component={Link} to="/">
