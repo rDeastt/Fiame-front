@@ -6,7 +6,6 @@ export const QuotaSummary = ({ quotaSummary }) => {
         labels: ['Cuotas vencidas', 'Cuotas pagadas', 'Cuotas pagadas con vencimiento', 'Cuotas sin pagar sin vencimiento'],
         datasets: [
             {
-                label: '# de Cuotas',
                 data: [
                     quotaSummary.overdueQuotas,
                     quotaSummary.paidQuotas,
@@ -31,10 +30,49 @@ export const QuotaSummary = ({ quotaSummary }) => {
     };
 
     const options = {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Resumen de Cuotas'
+            },
+            legend: {
+                display: true, // Mostrar la leyenda
+                position: 'top', // Posición de la leyenda
+                labels: {
+                    generateLabels: (chart) => {
+                        const { data } = chart;
+                        return data.labels.map((label, index) => ({
+                            text: label,
+                            fillStyle: data.datasets[0].backgroundColor[index],
+                            hidden: false,
+                        }));
+                    },
+                },
+                onClick: (e, legendItem) => {
+                    const index = legendItem.index;
+                    const ci = legendItem.chart;
+                    const meta = ci.getDatasetMeta(0);
+
+                    // Alternar la visibilidad del dataset
+                    meta.data[index].hidden = !meta.data[index].hidden;
+                    ci.update();
+                },
+            },
+        },
         scales: {
             y: {
                 beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Número de Cuotas'
+                }
             },
+            x: {
+                title: {
+                    display: true,
+                    text: 'Tipos de Cuotas'
+                }
+            }
         },
     };
 
