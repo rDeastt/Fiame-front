@@ -104,13 +104,13 @@ export const CreatePaymentPlan = () => {
             });
         }else if ((totalCost-initialQuota) > client.credit_limit){
             Swal.fire({
-                title: "¿Seguro que desean continuar?",
+                title: "¿Seguro que deseas continuar?",
                 text: "El prestamo solicitado supera el limite de credito del Cliente",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Sí, deso continuar de todas formas"
+                confirmButtonText: "Sí, deseo continuar de todas formas"
             }).then((result) => {
                 if (result.isConfirmed) {
                     generatePlan();

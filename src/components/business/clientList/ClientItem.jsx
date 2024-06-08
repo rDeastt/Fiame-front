@@ -58,7 +58,7 @@ export const ClientItem = ({ data, type }) => {
 
     return (
         <div className="business-item">
-            <img src={"src/assets/user.png"} alt="Business" className="business-image" />
+            <img src={"https://i.imgur.com/3PoiBzZ.png"} alt="Business" className="business-image" />
             <div className="business-info">
                 <p className="info-item">Cliente: {client.name + " " + client.lastname}</p>
                 <p className="info-item">DNI: {client.dni}</p>

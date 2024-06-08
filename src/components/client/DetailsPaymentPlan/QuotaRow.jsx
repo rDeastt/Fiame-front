@@ -24,7 +24,12 @@ export const QuotaRow = ({ quota, paymentplan, handleCheckboxChange }) => {
 
         return msg
     }
-
+    const convertDate=(fecha)=>{
+        if (fecha === null){
+            return '-'
+        }
+        return new Date(fecha).toLocaleDateString();
+    }
     return (
         <TableRow key={quota.id}>
             <TableCell>{quota.id}</TableCell>
@@ -32,10 +37,11 @@ export const QuotaRow = ({ quota, paymentplan, handleCheckboxChange }) => {
             <TableCell>{(quota.tem * 100).toFixed(2)}%</TableCell>
             <TableCell>{"S/" + quota.amount}</TableCell>
             <TableCell>{(paymentplan.interest_rate * 100).toFixed(2)}%</TableCell>
-            <TableCell>{new Date(quota.date).toLocaleDateString()}</TableCell>
+            <TableCell>{convertDate(quota.date)}</TableCell>
             <TableCell>{"S/"+quota.moraAmount}</TableCell>
             <TableCell>{"S/"+quota.icompamount}</TableCell>
             <TableCell>{estado(quota)}</TableCell>
+            <TableCell>{convertDate(quota.dayPayed)}</TableCell>
             <TableCell>
                 <Checkbox
                     checked={quota.payed}

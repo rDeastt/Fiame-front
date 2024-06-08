@@ -3,7 +3,7 @@
     background-color: #07AEBA;
     font-size: 12px;
     padding: 20px;
-    min-height: calc(100vh - 109px);
+    min-height: calc(100vh - 64px);
     display: flex;
     justify-content: flex-start; /* Ajuste para alinear la lista hacia arriba */
     align-items: center;

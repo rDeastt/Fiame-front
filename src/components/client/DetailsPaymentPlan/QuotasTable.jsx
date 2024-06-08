@@ -15,6 +15,7 @@ export const QuotasTable = ({ quotas, paymentplan, handleCheckboxChange }) => {
                         <TableCell>Mora</TableCell>
                         <TableCell>Int. Comp.</TableCell>
                         <TableCell>Estado</TableCell>
+                        <TableCell>Fecha de Pago</TableCell>
                         <TableCell>Pagado</TableCell>
                     </TableRow>
                 </TableHead>

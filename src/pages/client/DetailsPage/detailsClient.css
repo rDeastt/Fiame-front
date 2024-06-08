@@ -1,5 +1,5 @@
 .container-detailsC {
-    background-color: #00b0f0;
+    background-color: #07AEBA;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -17,6 +17,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .table-headerD {
-    background-color: #0087d0; /* Cambia este color según tu preferencia */
+    background-color: #07AEBA; /* Cambia este color según tu preferencia */
     color: #ff0000; /* Color del texto */
 }

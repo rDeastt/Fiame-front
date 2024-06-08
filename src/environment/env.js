@@ -1,1 +1,1 @@
-export const urlGlobal = 'http://192.168.18.4:8080/api/';
+export const urlGlobal = 'http://localhost:8080/api/';
