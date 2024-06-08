@@ -7,25 +7,30 @@ import {Link} from "react-router-dom";
 export const BusinessItem = ({ data, type }) => {
     const { business, quotas, list_pay_without_instalments } = data;
     const [totalWithInterest, setTotalWithInterest] = useState('N/A');
+    const [totalWithoutInterest, setTotalWithoutInterest] = useState('N/A'); // Estado para el total sin interés
 
     useEffect(() => {
-        if (type === 'paymentbag') {
-            const fetchTotalWithInterest = async () => {
-                const today = new Date();
-                const day = today.getDate();
-                const month = today.getMonth() + 1; // Enero es 0
-                const year = today.getFullYear();
+        const today = new Date();
+        const day = today.getDate();
+        const month = today.getMonth() + 1; // Enero es 0
+        const year = today.getFullYear();
 
-                try {
-                    const response = await axios.get(`${urlGlobal}paymentbag/totalwithinterests/${data.client?.id}/${business.id}/${day}/${month}/${year}`);
-                    setTotalWithInterest(response.data);
-                } catch (error) {
-                    console.error('Error fetching total with interest:', error);
+        const fetchTotals = async () => {
+            try {
+                if (type === 'paymentbag') {
+                    const responseWithInterest = await axios.get(`${urlGlobal}paymentbag/totalwithinterests/${data.client?.id}/${business.id}/${day}/${month}/${year}`);
+                    setTotalWithInterest(responseWithInterest.data);
+                    console.log("Total with interest:", responseWithInterest.data);
+                    const responseWithoutInterest = await axios.get(`${urlGlobal}paymentbag/totalconsumed/${data.client?.id}/${business.id}`);
+                    setTotalWithoutInterest(responseWithoutInterest.data);
+                    console.log("Total without interest:", responseWithoutInterest.data);
                 }
-            };
+            } catch (error) {
+                console.error('Error fetching totals:', error);
+            }
+        };
 
-            fetchTotalWithInterest();
-        }
+        fetchTotals();
     }, [data, business, type]);
 
     const formatDate = (dateString) => {
@@ -34,7 +39,7 @@ export const BusinessItem = ({ data, type }) => {
     };
 
     const renderPaymentPlanInfo = () => {
-        const sortedQuotas = quotas.sort((a, b) => a.id - b.id);
+        const sortedQuotas = quotas ? quotas.sort((a, b) => a.id - b.id) : [];
         const nextQuota = sortedQuotas.find(quota => !quota.payed);
 
         return (
@@ -49,9 +54,10 @@ export const BusinessItem = ({ data, type }) => {
     const renderPaymentBagInfo = () => {
         return (
             <div className="quota-info">
-                <p className="info-item">Total de pago por consumo: {totalWithInterest}</p>
+                <p className="info-item">Total de pago por consumo (sin interés): {totalWithoutInterest}</p>
+                <p className="info-item">Total de pago por consumo (con interés): {totalWithInterest}</p>
                 <p className="info-item">Vencimiento: {formatDate(data.day_with_month_payment)}</p>
-                <p className="info-item">Tipo de préstamo: consumos reiterativos</p>
+                <p className="info-item">Tipo de préstamo: Consumos Reiterativos</p>
             </div>
         );
     };
@@ -80,11 +86,10 @@ export const BusinessItem = ({ data, type }) => {
                         <p>Dentro del plazo</p>
                     </div>
                 )}
-                <Link to={"/Client/Details/"+data.id}>
+                <Link to={type === 'paymentplan' ? `/Client/Details/${data.id}` : `/Client/DetailsBag/${data.client.id}/${business.id}`}>
                     <button className="details-button">Más detalles</button>
                 </Link>
             </div>
         </div>
     );
 };
-

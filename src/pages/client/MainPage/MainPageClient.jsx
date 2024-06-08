@@ -29,7 +29,7 @@ export const MainPageClient = () => {
 
         const fetchPaymentBags = async () => {
             try {
-                const response = await axios.get(urlGlobal + 'paymentbag/allbags/' + user.id);
+                const response = await axios.get(urlGlobal + 'paymentbag/allbagsperClient/' + user.id);
                 const paymentBagsData = response.data;
                 setPaymentBags(paymentBagsData);
             } catch (error) {

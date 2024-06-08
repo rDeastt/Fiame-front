@@ -25,4 +25,3 @@ export const BusinessList = ({ paymentplans = [], paymentbags = [] }) => {
         </div>
     );
 };
-
