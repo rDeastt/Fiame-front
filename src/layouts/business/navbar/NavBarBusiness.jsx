@@ -5,6 +5,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import DescriptionIcon from '@mui/icons-material/Description';
 import PeopleIcon from '@mui/icons-material/People';
 import LogoutIcon from '@mui/icons-material/Logout';
+import HistoryIcon from '@mui/icons-material/History';
 import { Link } from 'react-router-dom';
 
 export const NavBarBusiness = (props) => {
@@ -69,6 +70,10 @@ export const NavBarBusiness = (props) => {
                         <ListItem button component={Link} to="/Business/ActiveClients">
                             <ListItemIcon><PeopleIcon /></ListItemIcon>
                             <ListItemText primary="Clientes" />
+                        </ListItem>
+                        <ListItem button component={Link} to="/Business/history">
+                            <ListItemIcon><HistoryIcon /></ListItemIcon>
+                            <ListItemText primary="Historial" />
                         </ListItem>
                     </List>
                 </Box>

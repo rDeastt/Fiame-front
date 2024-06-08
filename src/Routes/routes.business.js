@@ -6,6 +6,7 @@ import {CreatePaymentPlan} from "../pages/business/CreatePaymentPlan/CreatePayme
 import {ActiveClients} from "../pages/business/ActiveClients/ActiveClients.jsx";
 import {DetailsClientPage} from "../pages/client/DetailsPage/DetailsClientPage.jsx";
 import {BusinessProfile} from "../pages/business/Profile/BusinessProfile.jsx";
+import {HistoryPaymentPlanBusiness} from "../pages/business/HistoryPaymentPlan/HistoryPaymentPlanBusiness.jsx";
 
 const routesBusiness = [
     {
@@ -37,6 +38,11 @@ const routesBusiness = [
         path: '/Business/profile',
         layout: NavBarBusiness,
         component: BusinessProfile
+    },
+    {
+        path: '/Business/history',
+        layout: NavBarBusiness,
+        component: HistoryPaymentPlanBusiness
     }
 ]
 
