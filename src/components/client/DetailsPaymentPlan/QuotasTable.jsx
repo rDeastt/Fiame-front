@@ -6,17 +6,17 @@ export const QuotasTable = ({ quotas, paymentplan, handleCheckboxChange }) => {
             <Table>
                 <TableHead className={"table-headerD"}>
                     <TableRow>
-                        <TableCell>N°</TableCell>
-                        <TableCell>Tipo</TableCell>
-                        <TableCell>TEM</TableCell>
-                        <TableCell>Cuota</TableCell>
-                        <TableCell>Interés</TableCell>
-                        <TableCell>Vencimiento</TableCell>
-                        <TableCell>Mora</TableCell>
-                        <TableCell>Int. Comp.</TableCell>
-                        <TableCell>Estado</TableCell>
-                        <TableCell>Fecha de Pago</TableCell>
-                        <TableCell>Pagado</TableCell>
+                        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>N°</TableCell>
+                        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Tipo</TableCell>
+                        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>TEM</TableCell>
+                        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Cuota</TableCell>
+                        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Interés</TableCell>
+                        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Vencimiento</TableCell>
+                        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Mora</TableCell>
+                        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Int. Comp.</TableCell>
+                        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Estado</TableCell>
+                        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Fecha de Pago</TableCell>
+                        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Pagado</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

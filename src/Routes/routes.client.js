@@ -4,7 +4,8 @@ import {NavBarClient} from "../layouts/client/navbar/NavBarClient.jsx";
 import {MainPageClient} from "../pages/client/MainPage/MainPageClient.jsx";
 import {DetailsClientPage} from "../pages/client/DetailsPage/DetailsClientPage.jsx";
 import {ClientProfile} from "../pages/client/Profile/ClientProfile.jsx";
-import PaymentBagDetails from "../components/client/DetailsPaymentBag/PaymentBagDetails.jsx";
+import {PaymentBagDetails} from "../components/client/DetailsPaymentBag/PaymentBagDetails.jsx";
+import {HistoryPaymentClient} from "../pages/client/HistoryPayment/HistoryPaymentClient.jsx";
 const routesClient = [
     {
         path:'/Client/register',
@@ -30,6 +31,11 @@ const routesClient = [
         path: '/Client/profile',
         layout: NavBarClient,
         component: ClientProfile
+    },
+    {
+        path: '/Client/history',
+        layout: NavBarClient,
+        component: HistoryPaymentClient
     }
 ]
 

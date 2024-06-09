@@ -1,22 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
 import axios from "axios";
+import {BusinessListHistory} from "../../../components/client/HistoryPayments/BusinessListHistory.jsx";
 import {urlGlobal} from "../../../environment/env.js";
-import {ClientListHistory} from "../../../components/business/historyPayments/ClientListHistory.jsx";
-
-export const HistoryPaymentPlanBusiness = () => {
+export const HistoryPaymentClient = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const storedUser = sessionStorage.getItem('Usuario');
     const [paymentplans, setPaymentPlans] = useState([]);
     const [paymentbags, setPaymentBags] = useState([]);
     const user = storedUser ? JSON.parse(storedUser) : null;
-    const navigate = useNavigate()
     console.log(user);
 
     useEffect(() => {
         const fetchPaymentPlans = async () => {
             try {
-                const response = await axios.get(urlGlobal + 'paymentplan/historyPaymentPlansBusiness/' + user.id);
+                const response = await axios.get(urlGlobal + 'paymentplan/historyPaymentPlansClient/' + user.id);
                 const paymentPlansData = response.data;
                 setPaymentPlans(paymentPlansData);
             } catch (error) {
@@ -30,7 +27,7 @@ export const HistoryPaymentPlanBusiness = () => {
 
         const fetchPaymentBags = async () => {
             try {
-                const response = await axios.get(urlGlobal + 'paymentbag/allbags/' + user.id);
+                const response = await axios.get(urlGlobal + 'paymentbag/allbagsperClient/' + user.id);
                 const paymentBagsData = response.data;
                 setPaymentBags(paymentBagsData);
             } catch (error) {
@@ -45,13 +42,14 @@ export const HistoryPaymentPlanBusiness = () => {
         fetchPaymentPlans();
         fetchPaymentBags();
     }, [user.id]);
+
+    console.log(paymentplans, paymentbags, "wa");
     return (
         <>
-            <div className="main-page-business">
+            <div className="main-page-client">
                 <div className="container-paymentplans">
-                    <ClientListHistory paymentplans={paymentplans} paymentbags={paymentbags}/>
+                    <BusinessListHistory paymentplans={paymentplans} paymentbags={paymentbags} />
                 </div>
-                <p>En construccion xd</p>
             </div>
         </>
     );

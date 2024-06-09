@@ -17,6 +17,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
 import DescriptionIcon from "@mui/icons-material/Description";
 import PeopleIcon from "@mui/icons-material/People";
+import HistoryIcon from "@mui/icons-material/History.js";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export const NavBarClient = (props) => {
     const storedUser = sessionStorage.getItem("Usuario");
@@ -45,9 +47,9 @@ export const NavBarClient = (props) => {
             <AppBar position="static" sx={{ backgroundColor: 'white' }}>
                 <Toolbar>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        {/*<IconButton edge="start" color="default" aria-label="menu" onClick={toggleDrawer(true)}>*/}
-                        {/*    <MenuIcon />*/}
-                        {/*</IconButton>*/}
+                        <IconButton edge="start" color="default" aria-label="menu" onClick={toggleDrawer(true)}>
+                            <MenuIcon />
+                        </IconButton>
                         <Link to="/Client" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'black' }}>
                             <img src="src/assets/logo.png" alt="Logo" style={{ height: '40px' }} />
                             <Typography variant="h6" sx={{ marginLeft: 1 }}>FiaMe</Typography>
@@ -64,29 +66,29 @@ export const NavBarClient = (props) => {
                     </IconButton>
                 </Toolbar>
             </AppBar>
-            {/*<Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>*/}
-            {/*    <Box*/}
-            {/*        role="presentation"*/}
-            {/*        onClick={toggleDrawer(false)}*/}
-            {/*        onKeyDown={toggleDrawer(false)}*/}
-            {/*        sx={{ width: 250 }}*/}
-            {/*    >*/}
-            {/*        <List>*/}
-            {/*            <ListItem button component={Link} to="/Client">*/}
-            {/*                <ListItemIcon><HomeIcon /></ListItemIcon>*/}
-            {/*                <ListItemText primary="Página principal" />*/}
-            {/*            </ListItem>*/}
-            {/*            <ListItem button component={Link} to='/Client/CreatePaymentPlan'>*/}
-            {/*                <ListItemIcon><DescriptionIcon /></ListItemIcon>*/}
-            {/*                <ListItemText primary="Generar plan" />*/}
-            {/*            </ListItem>*/}
-            {/*            <ListItem button component={Link} to="/Client/ActiveClients">*/}
-            {/*                <ListItemIcon><PeopleIcon /></ListItemIcon>*/}
-            {/*                <ListItemText primary="Clientes" />*/}
-            {/*            </ListItem>*/}
-            {/*        </List>*/}
-            {/*    </Box>*/}
-            {/*</Drawer>*/}
+            <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
+                <Box
+                    role="presentation"
+                    onClick={toggleDrawer(false)}
+                    onKeyDown={toggleDrawer(false)}
+                    sx={{ width: 250 }}
+                >
+                    <List>
+                        <ListItem button component={Link} to="/Client">
+                            <ListItemIcon><HomeIcon /></ListItemIcon>
+                            <ListItemText primary="Página principal" />
+                        </ListItem>
+                        <ListItem button component={Link} to="/Client/profile">
+                            <ListItemIcon><AccountCircleIcon /></ListItemIcon>
+                            <ListItemText primary="Perfil" />
+                        </ListItem>
+                        <ListItem button component={Link} to="/Client/history">
+                            <ListItemIcon><HistoryIcon /></ListItemIcon>
+                            <ListItemText primary="Historial" />
+                        </ListItem>
+                    </List>
+                </Box>
+            </Drawer>
             <div>{children}</div>
         </>
     );

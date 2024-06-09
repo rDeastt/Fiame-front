@@ -70,7 +70,7 @@ export const DetailsClientPage = () => {
 
     return (
         <div className="container-detailsC">
-            <Container maxWidth="md" className="content-container-detailsC">
+            <Container maxWidth="lg" className="content-container-detailsC">
                 <PaymentPlanDetail paymentplan={paymentplan} />
                 <QuotasTable quotas={quotas} paymentplan={paymentplan} handleCheckboxChange={handleCheckboxChange} />
             </Container>
