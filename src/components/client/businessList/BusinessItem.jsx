@@ -77,10 +77,10 @@ export const BusinessItem = ({ data, type }) => {
     return (
         !data.payed && (
             <div className="business-item">
-                <img src={"https://i.imgur.com/3PoiBzZ.png"} alt="Business" className="business-image" />
+                <img src={"https://i.imgur.com/lAIwtsY.jpg"} alt="Business" className="business-image" />
                 <div className="business-info">
-                    <p className="info-item">Nombre: {client.name}</p>
-                    <p className="info-item">DNI: {client.dni}</p>
+                    <p className="info-item">Tienda: {business.name}</p>
+                    <p className="info-item">RUC: {business.ruc}</p>
                     {type === 'paymentplan' ? renderPaymentPlanInfo() : renderPaymentBagInfo()}
                 </div>
                 <div className="action-container">
