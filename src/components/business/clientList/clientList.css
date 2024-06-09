@@ -101,6 +101,16 @@
     background-color: #4caf50;
 }
 
+.status.prorated {
+    background-color: #ffeb3b; /* Color amarillo */
+    color: black;
+}
+
+.status.not-prorated {
+    background-color: #8bc34a; /* Color verde */
+    color: white;
+}
+
 .details-button {
     background-color: #007bff;
     color: white;

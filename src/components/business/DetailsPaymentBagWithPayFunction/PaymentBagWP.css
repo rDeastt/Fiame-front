@@ -1,0 +1,104 @@
+/* General container styling */
+.container-details {
+    background-color: #07AEBA;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.content-container-details {
+    width: 100%;
+    max-width: 900px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table header styling */
+.table-header {
+    background-color: #07AEBA;
+    color: #ffffff;
+}
+
+/* Specific styles for Payment Bag Details */
+.payment-bag-details {
+    text-align: left;
+    width: 100%;
+}
+
+.payment-bag-details .details-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.payment-bag-details .details-section p {
+    font-size: 16px;
+    margin: 0;
+    padding: 10px;
+    background: #f7f7f7;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.payment-bag-details h1, .payment-bag-details h2 {
+    color: #07AEBA;
+    margin-bottom: 20px;
+}
+
+.payment-bag-details .consumptions-table {
+    width: 100%;
+    border-collapse: separate; /* Use separate borders to allow rounding */
+    border-spacing: 0; /* No spacing between cells */
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 3D effect */
+    border-radius: 10px; /* Rounding borders */
+    overflow: hidden; /* Ensures rounded corners */
+}
+
+.payment-bag-details .consumptions-table th, .payment-bag-details .consumptions-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.payment-bag-details .consumptions-table th {
+    background-color: #07AEBA;
+    color: white;
+    border: none; /* Remove default borders for header */
+}
+
+.payment-bag-details .consumptions-table td {
+    border: none; /* Remove default borders for cells */
+}
+
+.payment-bag-details .consumptions-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Specific 3D style for table headers and cells */
+.payment-bag-details .consumptions-table th,
+.payment-bag-details .consumptions-table td {
+    box-shadow: inset 0 1px 0 #ffffff, inset 0 -1px 0 #ddd;
+}
+
+.payment-bag-details .consumptions-table th:first-child {
+    border-top-left-radius: 10px; /* Round top-left corner */
+}
+
+.payment-bag-details .consumptions-table th:last-child {
+    border-top-right-radius: 10px; /* Round top-right corner */
+}
+
+.payment-bag-details .consumptions-table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px; /* Round bottom-left corner */
+}
+
+.payment-bag-details .consumptions-table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px; /* Round bottom-right corner */
+}

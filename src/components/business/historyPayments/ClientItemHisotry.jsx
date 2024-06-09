@@ -78,7 +78,7 @@ export const ClientItemHistory = ({ data, type }) => {
                         <p>{data.payed ? 'Pagado' : 'En proceso'}</p>
                     </div>
                 )}
-                <Link to={type === 'paymentplan' ? `/Business/Details/${data.id}` : `/Business/Details/${data.client.id}/${business.id}`}>
+                <Link to={type === 'paymentplan' ? `/Business/Details/${data.id}` : `/Business/DetailsBagHistory/${data.client.id}/${business.id}`}>
                     <button className="details-button-history">Más detalles</button>
                 </Link>
             </div>

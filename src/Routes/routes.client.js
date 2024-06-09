@@ -6,6 +6,7 @@ import {DetailsClientPage} from "../pages/client/DetailsPage/DetailsClientPage.j
 import {ClientProfile} from "../pages/client/Profile/ClientProfile.jsx";
 import {PaymentBagDetails} from "../components/client/DetailsPaymentBag/PaymentBagDetails.jsx";
 import {HistoryPaymentClient} from "../pages/client/HistoryPayment/HistoryPaymentClient.jsx";
+import {PaymentBagDetailsBusiness} from "../components/business/DetailsPaymentBagWithPayFunction/PaymentBagWP.jsx";
 const routesClient = [
     {
         path:'/Client/register',
@@ -24,6 +25,11 @@ const routesClient = [
     },
     {
         path: '/Client/DetailsBag/:clientId/:businessId', // Modifica la ruta para aceptar ambos IDs
+        layout: NavBarClient,
+        component: PaymentBagDetails
+    },
+    {
+        path: '/Client/DetailsBagHistory/:clientId/:businessId', // Modifica la ruta para aceptar ambos IDs
         layout: NavBarClient,
         component: PaymentBagDetails
     },

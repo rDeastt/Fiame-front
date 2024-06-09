@@ -15,7 +15,8 @@ export const DetailsClientPage = () => {
     const { id } = useParams();
     const [paymentplan, setPaymentPlan] = useState(null);
     const [quotas, setQuotas] = useState([]);
-
+    const storedUser = sessionStorage.getItem('Usuario');
+    const user = storedUser ? JSON.parse(storedUser) : null;
     useEffect(() => {
         const fetchPaymentPlan = async () => {
             try {
@@ -46,20 +47,28 @@ export const DetailsClientPage = () => {
 
     const handleCheckboxChange = async (event, quota) => {
         if (!quota.payed && event.target.checked) {
-            try {
-                const response = await axios.get(`${urlGlobal}paymentplan/payQuota/${quota.id}`);
-                const updatedQuotasResponse = await axios.get(`${urlGlobal}paymentplan/getQuotas/${id}`);
-                const updatedQuotas = updatedQuotasResponse.data;
-                setQuotas(updatedQuotas);
-
+            if (user.user.type === "Cliente"){
                 Swal.fire({
-                    title: "Cuota Pagada!",
-                    text: response.data, // Assuming the response contains the message to display
-                    icon: "success"
+                    title: "No puedes Hacer esto",
+                    text: "Anda a la Tienda " + paymentplan.business.name + " ubicada en " + paymentplan.business.address,
+                    icon: "question"
                 });
+            }else {
+                try {
+                    const response = await axios.get(`${urlGlobal}paymentplan/payQuota/${quota.id}`);
+                    const updatedQuotasResponse = await axios.get(`${urlGlobal}paymentplan/getQuotas/${id}`);
+                    const updatedQuotas = updatedQuotasResponse.data;
+                    setQuotas(updatedQuotas);
 
-            } catch (error) {
-                console.error('Error paying quota:', error);
+                    Swal.fire({
+                        title: "Cuota Pagada!",
+                        text: response.data, // Assuming the response contains the message to display
+                        icon: "success"
+                    });
+
+                } catch (error) {
+                    console.error('Error paying quota:', error);
+                }
             }
         }
     };

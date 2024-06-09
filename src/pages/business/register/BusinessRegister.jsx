@@ -3,9 +3,10 @@ import {useState} from 'react';
 import axios from 'axios';
 import {urlGlobal} from "../../../environment/env.js";
 import Swal from "sweetalert2";
+import {useNavigate} from "react-router-dom";
 
 export const BusinessRegister = () => {
-
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
             name: '',
             ruc: '',
@@ -41,6 +42,7 @@ export const BusinessRegister = () => {
 
                 console.log('Registro exitoso');
                 // Puedes redirigir al usuario a una página de éxito aquí
+                navigate("/login")
             } catch (error) {
                 console.error('Error al registrar:', error);
                 // Maneja errores aquí (por ejemplo, muestra un mensaje de error)

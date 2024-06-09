@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './clientList.css';
 import axios from "axios";
-import {urlGlobal} from "../../../environment/env.js";
-import {Link} from "react-router-dom";
+import { urlGlobal } from "../../../environment/env.js";
+import { Link } from "react-router-dom";
 
 export const ClientItem = ({ data, type }) => {
-    const { business, client, quotas, list_pay_without_instalments } = data;
+    const { client, business, quotas, list_pay_without_instalments } = data;
     const [totalWithInterest, setTotalWithInterest] = useState('N/A');
     const [totalWithoutInterest, setTotalWithoutInterest] = useState('N/A'); // Estado para el total sin interés
+    const [balanceNotYetPaid, setBalanceNotYetPaid] = useState(null); // Estado para el saldo restante prorrateado
 
     useEffect(() => {
         const today = new Date();
@@ -20,10 +21,15 @@ export const ClientItem = ({ data, type }) => {
                 if (type === 'paymentbag') {
                     const responseWithInterest = await axios.get(`${urlGlobal}paymentbag/totalwithinterests/${data.client?.id}/${business.id}/${day}/${month}/${year}`);
                     setTotalWithInterest(responseWithInterest.data);
-                    console.log(responseWithInterest.data);
+                    console.log("Total with interest:", responseWithInterest.data);
+
                     const responseWithoutInterest = await axios.get(`${urlGlobal}paymentbag/totalconsumed/${data.client?.id}/${business.id}`);
                     setTotalWithoutInterest(responseWithoutInterest.data);
-                    console.log(responseWithoutInterest.data);
+                    console.log("Total without interest:", responseWithoutInterest.data);
+
+                    if (data.recalculated_period) {
+                        setBalanceNotYetPaid(data.balance_not_yet_paid);
+                    }
                 }
             } catch (error) {
                 console.error('Error fetching totals:', error);
@@ -46,7 +52,7 @@ export const ClientItem = ({ data, type }) => {
             <div className="quota-info">
                 <p className="info-item">Cuota: {nextQuota ? nextQuota.amount : 'N/A'}</p>
                 <p className="info-item">Vencimiento: {nextQuota ? formatDate(nextQuota.date) : 'N/A'}</p>
-                <p className="info-item">Monto: {nextQuota ? nextQuota.amount + nextQuota.moraAmount + nextQuota.icompamount : 'N/A'}</p>
+                <p className="info-item">Monto: {nextQuota.amount + nextQuota.moraAmount + nextQuota.icompamount}</p>
             </div>
         );
     };
@@ -54,8 +60,14 @@ export const ClientItem = ({ data, type }) => {
     const renderPaymentBagInfo = () => {
         return (
             <div className="quota-info">
-                <p className="info-item">Total de pago por consumo (sin interés): {totalWithoutInterest}</p>
-                <p className="info-item">Total de pago por consumo (con interés): {totalWithInterest}</p>
+                {data.recalculated_period ? (
+                    <p className="info-item">Saldo restante prorrateado: {balanceNotYetPaid}</p>
+                ) : (
+                    <>
+                        <p className="info-item">Total de pago por consumo (sin interés): {totalWithoutInterest}</p>
+                        <p className="info-item">Total de pago por consumo (con interés): {totalWithInterest}</p>
+                    </>
+                )}
                 <p className="info-item">Vencimiento: {formatDate(data.day_with_month_payment)}</p>
                 <p className="info-item">Tipo de préstamo: Consumos Reiterativos</p>
             </div>
@@ -63,35 +75,40 @@ export const ClientItem = ({ data, type }) => {
     };
 
     return (
-        <div className="business-item">
-            <img src={"https://i.imgur.com/3PoiBzZ.png"} alt="Business" className="business-image" />
-            <div className="business-info">
-                <p className="info-item">Cliente: {client.name + " " + client.lastname}</p>
-                <p className="info-item">DNI: {client.dni}</p>
-                {type === 'paymentplan' ? renderPaymentPlanInfo() : renderPaymentBagInfo()}
+        !data.payed && (
+            <div className="business-item">
+                <img src={"https://i.imgur.com/3PoiBzZ.png"} alt="Business" className="business-image" />
+                <div className="business-info">
+                    <p className="info-item">Nombre: {client.name}</p> {/* Cambiado a client.name */}
+                    <p className="info-item">DNI: {client.dni}</p> {/* Cambiado a client.dni */}
+                    {type === 'paymentplan' ? renderPaymentPlanInfo() : renderPaymentBagInfo()}
+                </div>
+                <div className="action-container">
+                    {type === 'paymentplan' && quotas && quotas.length > 0 ? (
+                        (() => {
+                            const sortedQuotas = quotas.sort((a, b) => a.id - b.id);
+                            const nextQuota = sortedQuotas.find(quota => !quota.payed);
+                            return (
+                                <div className={`status ${nextQuota && nextQuota.outofdate ? 'overdue' : 'within-term'}`}>
+                                    <p>{nextQuota && nextQuota.outofdate ? 'Plazo vencido, Interes con mora' : 'Dentro del plazo'}</p>
+                                </div>
+                            );
+                        })()
+                    ) : (
+                        <div className="status within-term">
+                            <p>Dentro del plazo</p>
+                        </div>
+                    )}
+                    {type === 'paymentbag' && (
+                        <div className={`status ${data.recalculated_period ? 'prorated' : 'not-prorated'}`}>
+                            <p>{data.recalculated_period ? 'Prorrateado' : 'No Prorrateado'}</p>
+                        </div>
+                    )}
+                    <Link to={type === 'paymentplan' ? `/Business/Details/${data.id}` : `/Business/DetailsBag/${data.client.id}/${business.id}`}>
+                        <button className="details-button">Más detalles</button>
+                    </Link>
+                </div>
             </div>
-            <div className="action-container">
-                {type === 'paymentplan' && quotas && quotas.length > 0 ? (
-                    (() => {
-                        const sortedQuotas = quotas.sort((a, b) => a.id - b.id);
-                        const nextQuota = sortedQuotas.find(quota => !quota.payed);
-                        return (
-                            <div className={`status ${nextQuota && nextQuota.outofdate ? 'overdue' : 'within-term'}`}>
-                                <p>{nextQuota && nextQuota.outofdate ? 'Plazo vencido, Interes con mora' : 'Dentro del plazo'}</p>
-                            </div>
-                        );
-                    })()
-                ) : (
-                    <div className="status within-term">
-                        <p>Dentro del plazo</p>
-                    </div>
-                )}
-                <Link to={"/Business/Details/"+data.id}>
-                    <button className="details-button">Más detalles</button>
-                </Link>
-            </div>
-        </div>
+        )
     );
 };
-
-

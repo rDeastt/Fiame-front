@@ -174,7 +174,7 @@ export const CreatePaymentPlan = () => {
             dni: dni,
             credit_limit: creditLimit,
             interest_rate: interestRate / 100,
-            interest_type: specificInterestType,
+            interest_type: interestType,
             capitalization: capitalization,
             late_payment_rate: moratoriumInterestRate / 100,
             term: paymentTerm,

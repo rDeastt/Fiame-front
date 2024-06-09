@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {BusinessList} from "../../../components/client/businessList/BusinessList.jsx";
+import React, { useEffect, useState } from 'react';
+import { BusinessList } from "../../../components/client/businessList/BusinessList.jsx";
 import axios from "axios";
-import {urlGlobal} from "../../../environment/env.js";
-import {useNavigate} from "react-router-dom";
+import { urlGlobal } from "../../../environment/env.js";
 
 export const MainPageClient = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -17,7 +16,7 @@ export const MainPageClient = () => {
             try {
                 const response = await axios.get(urlGlobal + 'paymentplan/getPaymentPlansClient/' + user.id);
                 const paymentPlansData = response.data;
-                setPaymentPlans(paymentPlansData);
+                setPaymentPlans(paymentPlansData.filter(plan => !plan.payed)); // Filtrar planes de pago que no están pagados
             } catch (error) {
                 if (error.response && error.response.status === 404) {
                     setPaymentPlans([]); // Si es un 404, simplemente deja el array vacío
@@ -31,7 +30,7 @@ export const MainPageClient = () => {
             try {
                 const response = await axios.get(urlGlobal + 'paymentbag/allbagsperClient/' + user.id);
                 const paymentBagsData = response.data;
-                setPaymentBags(paymentBagsData);
+                setPaymentBags(paymentBagsData.filter(bag => !bag.payed)); // Filtrar bolsas de pago que no están pagadas
             } catch (error) {
                 if (error.response && error.response.status === 404) {
                     setPaymentBags([]); // Si es un 404, simplemente deja el array vacío
@@ -56,4 +55,3 @@ export const MainPageClient = () => {
         </>
     );
 };
-

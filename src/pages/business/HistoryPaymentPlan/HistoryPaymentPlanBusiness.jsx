@@ -51,7 +51,6 @@ export const HistoryPaymentPlanBusiness = () => {
                 <div className="container-paymentplans">
                     <ClientListHistory paymentplans={paymentplans} paymentbags={paymentbags}/>
                 </div>
-                <p>En construccion xd</p>
             </div>
         </>
     );

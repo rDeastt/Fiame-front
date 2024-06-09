@@ -1,7 +1,6 @@
 import React from 'react';
-
 import './businessList.css';
-import {BusinessItem} from "./BusinessItem.jsx";
+import { BusinessItem } from "./BusinessItem.jsx";
 
 export const BusinessList = ({ paymentplans = [], paymentbags = [] }) => {
     return (
@@ -16,7 +15,7 @@ export const BusinessList = ({ paymentplans = [], paymentbags = [] }) => {
             )}
             {Array.isArray(paymentbags) && paymentbags.length > 0 && (
                 <>
-                    <h2>Bolsas de Pago</h2>
+                    <h2>Bolsas de Pago por Consumo</h2>
                     {paymentbags.map(bag => (
                         <BusinessItem key={bag.id} data={bag} type="paymentbag" />
                     ))}
