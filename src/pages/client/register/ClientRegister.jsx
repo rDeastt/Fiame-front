@@ -11,7 +11,7 @@ export const ClientRegister = () => {
         name: '',
         lastname: '',
         dni: '',
-        credit_limit:30,
+        credit_limit:50,
         email: '',
         password: ''
     });

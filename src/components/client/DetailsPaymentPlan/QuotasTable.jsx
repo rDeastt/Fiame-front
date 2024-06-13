@@ -6,7 +6,7 @@ export const QuotasTable = ({ quotas, paymentplan, handleCheckboxChange }) => {
             <Table>
                 <TableHead className={"table-headerD"}>
                     <TableRow>
-                        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>N°</TableCell>
+                        <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>ID</TableCell>
                         <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Tipo</TableCell>
                         <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>TEM</TableCell>
                         <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Cuota</TableCell>

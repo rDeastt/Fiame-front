@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import './NavBarClient.css'
-import {Link} from "react-router-dom";
+import React, { useState } from 'react';
+import './NavBarClient.css';
+import { Link } from "react-router-dom";
 import {
     AppBar,
     Avatar,
@@ -10,15 +10,18 @@ import {
     ListItemIcon,
     ListItemText,
     Toolbar,
-    Typography
+    Typography,
+    Menu,
+    MenuItem
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
 import HomeIcon from "@mui/icons-material/Home";
 import DescriptionIcon from "@mui/icons-material/Description";
 import PeopleIcon from "@mui/icons-material/People";
-import HistoryIcon from "@mui/icons-material/History.js";
+import HistoryIcon from "@mui/icons-material/History";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ReportIcon from '@mui/icons-material/Report';
 
 export const NavBarClient = (props) => {
     const storedUser = sessionStorage.getItem("Usuario");
@@ -26,19 +29,26 @@ export const NavBarClient = (props) => {
     const { children } = props;
 
     const handleClearSessionStorage = () => {
-        // Borra el elemento 'Usuario' del sessionStorage
         sessionStorage.removeItem('Usuario');
-        // Puedes agregar cualquier otra lógica que necesites después de borrar el elemento
     };
 
-    // Estado y función para manejar el menú desplegable
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [reportMenuAnchorEl, setReportMenuAnchorEl] = useState(null);
 
     const toggleDrawer = (open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
         setDrawerOpen(open);
+    };
+
+    const handleReportMenuClick = (event) => {
+        event.stopPropagation();
+        setReportMenuAnchorEl(event.currentTarget);
+    };
+
+    const handleReportMenuClose = () => {
+        setReportMenuAnchorEl(null);
     };
 
     return (
@@ -69,7 +79,7 @@ export const NavBarClient = (props) => {
             <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
                 <Box
                     role="presentation"
-                    onClick={toggleDrawer(false)}
+                    onClick={(event) => event.stopPropagation()}
                     onKeyDown={toggleDrawer(false)}
                     sx={{ width: 250 }}
                 >
@@ -86,11 +96,25 @@ export const NavBarClient = (props) => {
                             <ListItemIcon><HistoryIcon /></ListItemIcon>
                             <ListItemText primary="Historial" />
                         </ListItem>
+                        <ListItem button onClick={handleReportMenuClick}>
+                            <ListItemIcon><ReportIcon /></ListItemIcon>
+                            <ListItemText primary="Reportes" />
+                        </ListItem>
                     </List>
+                    <Menu
+                        anchorEl={reportMenuAnchorEl}
+                        open={Boolean(reportMenuAnchorEl)}
+                        onClose={handleReportMenuClose}
+                        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+                    >
+                        <MenuItem component={Link} to={"/Client/reportPayment/"+user.id} onClick={handleReportMenuClose}>Saldo en cuenta</MenuItem>
+                        <MenuItem component={Link} to={"/Client/reportPayment/"+user.id} onClick={handleReportMenuClose}>Reporte de pagos</MenuItem>
+                        <MenuItem component={Link} to={"/Client/reportConsume/"+user.id} onClick={handleReportMenuClose}>Reporte de consumos</MenuItem>
+                    </Menu>
                 </Box>
             </Drawer>
             <div>{children}</div>
         </>
     );
 }
-

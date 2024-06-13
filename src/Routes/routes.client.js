@@ -7,6 +7,8 @@ import {ClientProfile} from "../pages/client/Profile/ClientProfile.jsx";
 import {PaymentBagDetails} from "../components/client/DetailsPaymentBag/PaymentBagDetails.jsx";
 import {HistoryPaymentClient} from "../pages/client/HistoryPayment/HistoryPaymentClient.jsx";
 import {PaymentBagDetailsBusiness} from "../components/business/DetailsPaymentBagWithPayFunction/PaymentBagWP.jsx";
+import {PaymentReport} from "../pages/client/Reports/PaymentReport.jsx";
+import {ConsumeReport} from "../pages/client/Reports/ConsumeReport.jsx";
 const routesClient = [
     {
         path:'/Client/register',
@@ -42,6 +44,16 @@ const routesClient = [
         path: '/Client/history',
         layout: NavBarClient,
         component: HistoryPaymentClient
+    },
+    {
+        path: '/Client/reportPayment/:id',
+        layout: NavBarClient,
+        component: PaymentReport
+    },
+    {
+        path: '/Client/reportConsume/:id',
+        layout: NavBarClient,
+        component: ConsumeReport
     }
 ]
 

@@ -34,6 +34,7 @@ export const CreatePaymentPlan = () => {
     const [gracePeriod, setGracePeriod] = useState(0);
     const [totalCost, setTotalCost] = useState(0);
     const [initialQuota, setInitialQuota] = useState(0);
+    const [description, setDescription] = useState('');
     const [selectedForm, setSelectedForm] = useState('Anualidad');
     const [day, setDay] = useState('');
     const [month, setMonth] = useState('');
@@ -75,9 +76,9 @@ export const CreatePaymentPlan = () => {
 
     const validateFields = () => {
         if (selectedForm === 'Anualidad') {
-            return !(!dni || !interestRate || !moratoriumInterestRate || !totalCost || !initialQuota || totalCost <= 0);
+            return !(!dni || !interestRate || !moratoriumInterestRate || !totalCost || !initialQuota || totalCost <= 0 || !description);
         } else {
-            return !(!dni || !day || !month || !year || !interestRate || !moratoriumInterestRate || !storeConsumption || !paymentBagGenerated);
+            return !(!dni || !day || !month || !year || !interestRate || !moratoriumInterestRate || !storeConsumption || !paymentBagGenerated || !description);
         }
     };
 
@@ -97,11 +98,12 @@ export const CreatePaymentPlan = () => {
                 consumption_store: storeConsumption,
                 interest_type: specificInterestType,
                 interest_rate: interestRate / 100,
-                capitalization: interestType === 'Efectiva' ? 'NO' : capitalization,
+                capitalization: interestType === 'Nominal' ? capitalization : 'NO',
                 consumption_date: consumptionDate.toISOString().split('T')[0], // Convert to LocalDate format (yyyy-mm-dd)
                 late_payment_rate: moratoriumInterestRate / 100,
                 client_id: client.id,
-                business_id: business.id
+                business_id: business.id,
+                description: description
             };
             console.log(DataForm2);
             try {
@@ -162,6 +164,7 @@ export const CreatePaymentPlan = () => {
         setGracePeriod(0);
         setTotalCost(0);
         setInitialQuota(0);
+        setDescription('');
         setDay('');
         setMonth('');
         setYear('2024');
@@ -184,7 +187,8 @@ export const CreatePaymentPlan = () => {
             initial_quota: initialQuota,
             initial_date: today,
             client_id: client.id,
-            business_id: business.id
+            business_id: business.id,
+            description: description
         }
         try {
             const paymentPlanResponse = axios.post(urlGlobal + "paymentplan", DataForm)
@@ -291,7 +295,7 @@ export const CreatePaymentPlan = () => {
 
     return (
         <Box sx={{ backgroundColor: '#07AEBA', minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Box sx={{ maxWidth: 600, width: '100%', backgroundColor: 'white', borderRadius: 2, padding: 3, boxShadow: 3 }}>
+            <Box sx={{ maxWidth: 600, width: '100%', backgroundColor: 'white', borderRadius: 2, padding: 3, boxShadow: 3, marginTop: '20px', marginBottom: '20px'}} >
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
                     <Button variant={selectedForm === 'Anualidad' ? "contained" : "outlined"} onClick={() => setSelectedForm('Anualidad')}>Anualidad</Button>
                     <Button variant={selectedForm === 'Consumo en tienda' ? "contained" : "outlined"} onClick={() => setSelectedForm('Consumo en tienda')}>Consumo en tienda</Button>
@@ -373,6 +377,15 @@ export const CreatePaymentPlan = () => {
                                 },
                                 endAdornment: <span>%</span>,
                             }}
+                        />
+                        <TextField
+                            label="Descripción del producto"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            fullWidth
+                            margin="normal"
+                            multiline
+                            rows={3} // Tamaño un poco más grande
                         />
 
                         <TextField
@@ -523,6 +536,16 @@ export const CreatePaymentPlan = () => {
                             }}
                             disabled={!paymentBagGenerated && selectedForm === 'Consumo en tienda'} // <- Modificado
                         />
+                        <TextField
+                            label="Descripción del producto"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            fullWidth
+                            margin="normal"
+                            multiline
+                            rows={3} // Tamaño un poco más grande
+                        />
+
                         <Box display="flex" flexDirection="column" gap={2}>
                             <DatePicker
                                 selected={consumptionDate}
@@ -562,20 +585,34 @@ export const CreatePaymentPlan = () => {
                             )}
 
                             {interestType === 'Nominal' && (
-                                <FormControl fullWidth margin="normal">
-                                    <InputLabel id="select-nominal-rate">Tipos de Tasa Nominal</InputLabel>
-                                    <Select
-                                        labelId="select-nominal-rate"
-                                        label="Tipos de Tasa Nominal"
-                                        value={specificInterestType}
-                                        onChange={(e) => setSpecificInterestType(e.target.value)}
-                                        fullWidth
-                                    >
-                                        <MenuItem value="TNT">TNT</MenuItem>
-                                        <MenuItem value="TNB">TNB</MenuItem>
-                                        <MenuItem value="TNM">TNM</MenuItem>
-                                    </Select>
-                                </FormControl>
+                                <>
+                                    <FormControl fullWidth margin="normal">
+                                        <InputLabel id="select-nominal-rate">Tipos de Tasa Nominal</InputLabel>
+                                        <Select
+                                            labelId="select-nominal-rate"
+                                            label="Tipos de Tasa Nominal"
+                                            value={specificInterestType}
+                                            onChange={(e) => setSpecificInterestType(e.target.value)}
+                                            fullWidth
+                                        >
+                                            <MenuItem value="TNT">TNT</MenuItem>
+                                            <MenuItem value="TNB">TNB</MenuItem>
+                                            <MenuItem value="TNM">TNM</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                    <FormControl fullWidth margin="normal">
+                                        <InputLabel id="select-capitalization">Capitalización</InputLabel>
+                                        <Select
+                                            labelId="select-capitalization"
+                                            value={capitalization}
+                                            onChange={(e) => setCapitalization(e.target.value)}
+                                            fullWidth
+                                        >
+                                            <MenuItem value="Diaria">Diaria</MenuItem>
+                                            <MenuItem value="Mensual">Mensual</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </>
                             )}
                         </Box>
                         <TextField
@@ -615,5 +652,3 @@ export const CreatePaymentPlan = () => {
         </Box>
     );
 };
-
-export default CreatePaymentPlan;
