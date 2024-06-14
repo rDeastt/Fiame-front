@@ -1,0 +1,39 @@
+.main-page-client {
+    position: relative;
+    padding-top: 20px; /* Para dar espacio en la parte superior */
+}
+
+.credit-limit-box {
+    position: absolute; /* Cambiado de fixed a absolute */
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    z-index: 1000;
+}
+
+.credit-limit-box p {
+    margin: 0;
+    font-weight: bold;
+    font-size: 12px; /* Aumentar tamaño de letra */
+    margin-right: 10px; /* Añadir margen derecho */
+}
+
+.credit-limit-value {
+    margin-left: 10px; /* Añadir margen izquierdo */
+    padding: 5px 10px; /* Aumentar padding para hacerlo más grande horizontalmente */
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 12px; /* Aumentar tamaño de letra */
+}
+
+.container-paymentplans {
+    margin-top: 60px; /* Ajustar según sea necesario para evitar superposición */
+}

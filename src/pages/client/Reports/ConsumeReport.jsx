@@ -16,24 +16,27 @@ import {
 } from "@mui/material";
 
 export const ConsumeReport = () => {
-    const { id } = useParams(); //id de usuario
+    const { id } = useParams(); // id de usuario
     const [paymentplans, setPaymentPlans] = useState([]);
+    const [filteredPaymentPlans, setFilteredPaymentPlans] = useState([]);
     const [paymentBagReport, setPaymentBagReport] = useState([]);
     const [month, setMonth] = useState(1);
     const [view, setView] = useState('plan'); // Estado para manejar la vista (plan o bolsa)
     const [year, setYear] = useState(new Date().getFullYear());
-    const convertDate=(fecha)=>{
-        if (fecha === null){
-            return '-'
+
+    const convertDate = (fecha) => {
+        if (fecha === null) {
+            return '-';
         }
         return new Date(fecha).toLocaleDateString();
-    }
+    };
+
     useEffect(() => {
         const fetchPaymentPlans = async () => {
             try {
-                const response = await axios.get(urlGlobal + 'paymentplan/historyPaymentPlansClient/' + id);
+                const response = await axios.get(urlGlobal + `paymentplan/historyPaymentPlansClient/${id}`);
                 const paymentPlansData = response.data;
-                setPaymentPlans(paymentPlansData.filter(plan => plan.payed)); // Filtrar planes de pago que stán pagados
+                setPaymentPlans(paymentPlansData); // Guardar todos los planes de pago
             } catch (error) {
                 if (error.response && error.response.status === 404) {
                     setPaymentPlans([]); // Si es un 404, simplemente deja el array vacío
@@ -42,8 +45,21 @@ export const ConsumeReport = () => {
                 }
             }
         };
-        fetchPaymentPlans();
-    }, [id]);
+
+        if (view === 'plan') {
+            fetchPaymentPlans();
+        }
+    }, [id, view]);
+
+    useEffect(() => {
+        if (view === 'plan') {
+            const filteredPlans = paymentplans.filter(plan => {
+                const planDate = new Date(plan.dayGenerated);
+                return planDate.getMonth() + 1 === month && planDate.getFullYear() === year;
+            });
+            setFilteredPaymentPlans(filteredPlans);
+        }
+    }, [paymentplans, month, year, view]);
 
     useEffect(() => {
         if (view === 'bolsa') {
@@ -138,7 +154,7 @@ export const ConsumeReport = () => {
                         </TableHead>
                         <TableBody>
                             {view === 'plan' ? (
-                                paymentplans.map((payment) => (
+                                filteredPaymentPlans.map((payment) => (
                                     <TableRow key={payment.id}>
                                         <TableCell>{payment.id}</TableCell>
                                         <TableCell>{payment.business.name}</TableCell>

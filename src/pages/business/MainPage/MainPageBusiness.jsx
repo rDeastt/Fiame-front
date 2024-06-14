@@ -87,24 +87,7 @@ export const MainPageBusiness = () => {
                                 <LoanBalanceChart businessId={user.id} startDate={startDate}/>
                             </Paper>
                         </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Paper elevation={3} sx={{ padding: 2 }}>
-                                {/* Placeholder for the third chart */}
-                                <div>Placeholder for the third chart</div>
-                            </Paper>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Paper elevation={3} sx={{ padding: 2 }}>
-                                {/* Placeholder for the fourth chart */}
-                                <div>Placeholder for the fourth chart</div>
-                            </Paper>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Paper elevation={3} sx={{ padding: 2 }}>
-                                {/* Placeholder for the fifth chart */}
-                                <div>Placeholder for the fifth chart</div>
-                            </Paper>
-                        </Grid>
+
                     </Grid>
                 </Container>
             </Box>

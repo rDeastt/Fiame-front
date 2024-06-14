@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './NavBarClient.css';
 import { Link } from "react-router-dom";
 import {
@@ -50,29 +50,46 @@ export const NavBarClient = (props) => {
     const handleReportMenuClose = () => {
         setReportMenuAnchorEl(null);
     };
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.id = 'hs-script-loader';
+        script.async = true;
+        script.defer = true;
+        script.src = '//js-na1.hs-scripts.com/46351322.js';
+        document.body.appendChild(script);
+
+        return () => {
+            document.body.removeChild(script);
+        };
+    }, []);
 
     return (
         <>
-            <CssBaseline />
-            <AppBar position="static" sx={{ backgroundColor: 'white' }}>
+            <CssBaseline/>
+            <AppBar position="static" sx={{backgroundColor: 'white'}}>
                 <Toolbar>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Box sx={{display: 'flex', alignItems: 'center'}}>
                         <IconButton edge="start" color="default" aria-label="menu" onClick={toggleDrawer(true)}>
-                            <MenuIcon />
+                            <MenuIcon/>
                         </IconButton>
-                        <Link to="/Client" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'black' }}>
-                            <img src="src/assets/logo.png" alt="Logo" style={{ height: '40px' }} />
-                            <Typography variant="h6" sx={{ marginLeft: 1 }}>FiaMe</Typography>
+                        <Link to="/Client"
+                              style={{display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'black'}}>
+                            <img src="src/assets/logo.png" alt="Logo" style={{height: '40px'}}/>
+                            <Typography variant="h6" sx={{marginLeft: 1}}>FiaMe</Typography>
                         </Link>
                     </Box>
-                    <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <Box sx={{flexGrow: 1, display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                         <Link to={"/Client/profile"}>
-                            <Avatar src="src/assets/user.png" alt="User Avatar" />
+                            <Avatar src="src/assets/user.png" alt="User Avatar"/>
                         </Link>
-                        <Typography variant="body1" sx={{ marginLeft: 1, color: 'black' }}>{user?.name + " " + user?.lastname || "Usuario"}</Typography>
+                        <Typography variant="body1" sx={{
+                            marginLeft: 1,
+                            color: 'black'
+                        }}>{user?.name + " " + user?.lastname || "Usuario"}</Typography>
                     </Box>
                     <IconButton color="default" onClick={handleClearSessionStorage} component={Link} to="/">
-                        <LogoutIcon />
+                        <LogoutIcon/>
                     </IconButton>
                 </Toolbar>
             </AppBar>
@@ -81,36 +98,37 @@ export const NavBarClient = (props) => {
                     role="presentation"
                     onClick={(event) => event.stopPropagation()}
                     onKeyDown={toggleDrawer(false)}
-                    sx={{ width: 250 }}
+                    sx={{width: 250}}
                 >
                     <List>
                         <ListItem button component={Link} to="/Client">
-                            <ListItemIcon><HomeIcon /></ListItemIcon>
-                            <ListItemText primary="Página principal" />
+                            <ListItemIcon><HomeIcon/></ListItemIcon>
+                            <ListItemText primary="Página principal"/>
                         </ListItem>
                         <ListItem button component={Link} to="/Client/profile">
-                            <ListItemIcon><AccountCircleIcon /></ListItemIcon>
-                            <ListItemText primary="Perfil" />
+                            <ListItemIcon><AccountCircleIcon/></ListItemIcon>
+                            <ListItemText primary="Perfil"/>
                         </ListItem>
                         <ListItem button component={Link} to="/Client/history">
-                            <ListItemIcon><HistoryIcon /></ListItemIcon>
-                            <ListItemText primary="Historial" />
+                            <ListItemIcon><HistoryIcon/></ListItemIcon>
+                            <ListItemText primary="Historial"/>
                         </ListItem>
                         <ListItem button onClick={handleReportMenuClick}>
-                            <ListItemIcon><ReportIcon /></ListItemIcon>
-                            <ListItemText primary="Reportes" />
+                            <ListItemIcon><ReportIcon/></ListItemIcon>
+                            <ListItemText primary="Reportes"/>
                         </ListItem>
                     </List>
                     <Menu
                         anchorEl={reportMenuAnchorEl}
                         open={Boolean(reportMenuAnchorEl)}
                         onClose={handleReportMenuClose}
-                        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+                        anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+                        transformOrigin={{vertical: 'top', horizontal: 'left'}}
                     >
-                        <MenuItem component={Link} to={"/Client/reportPayment/"+user.id} onClick={handleReportMenuClose}>Saldo en cuenta</MenuItem>
-                        <MenuItem component={Link} to={"/Client/reportPayment/"+user.id} onClick={handleReportMenuClose}>Reporte de pagos</MenuItem>
-                        <MenuItem component={Link} to={"/Client/reportConsume/"+user.id} onClick={handleReportMenuClose}>Reporte de consumos</MenuItem>
+                        <MenuItem component={Link} to={"/Client/reportPayment/" + user.id}
+                                  onClick={handleReportMenuClose}>Reporte de pagos</MenuItem>
+                        <MenuItem component={Link} to={"/Client/reportConsume/" + user.id}
+                                  onClick={handleReportMenuClose}>Reporte de consumos</MenuItem>
                     </Menu>
                 </Box>
             </Drawer>

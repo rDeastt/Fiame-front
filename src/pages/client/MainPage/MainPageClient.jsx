@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { BusinessList } from "../../../components/client/businessList/BusinessList.jsx";
 import axios from "axios";
 import { urlGlobal } from "../../../environment/env.js";
+import './MainPageClient.css'; // Import CSS for styling
 
 export const MainPageClient = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const storedUser = sessionStorage.getItem('Usuario');
     const [paymentplans, setPaymentPlans] = useState([]);
     const [paymentbags, setPaymentBags] = useState([]);
+    const [creditLimit, setCreditLimit] = useState(0);
     const user = storedUser ? JSON.parse(storedUser) : null;
     console.log(user);
 
@@ -40,14 +42,28 @@ export const MainPageClient = () => {
             }
         };
 
+        const fetchCreditLimit = async () => {
+            try {
+                const response = await axios.get(urlGlobal + `client/limit/${user.id}`);
+                setCreditLimit(response.data);
+            } catch (error) {
+                console.error('Error fetching credit limit:', error);
+            }
+        };
+
         fetchPaymentPlans();
         fetchPaymentBags();
+        fetchCreditLimit();
     }, [user.id]);
 
-    console.log(paymentplans, paymentbags);
+    console.log(paymentplans, paymentbags, creditLimit);
     return (
         <>
             <div className="main-page-client">
+                <div className="credit-limit-box">
+                    <p>Límite de Crédito</p>
+                    <div className="credit-limit-value">S/{creditLimit}</div>
+                </div>
                 <div className="container-paymentplans">
                     <BusinessList paymentplans={paymentplans} paymentbags={paymentbags} />
                 </div>
