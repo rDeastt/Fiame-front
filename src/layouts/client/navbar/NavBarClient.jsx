@@ -56,7 +56,7 @@ export const NavBarClient = (props) => {
         script.id = 'hs-script-loader';
         script.async = true;
         script.defer = true;
-        script.src = '//js-na1.hs-scripts.com/46351322.js';
+        script.src = '//js-na1.hs-scripts.com/45899168.js';
         document.body.appendChild(script);
 
         return () => {
